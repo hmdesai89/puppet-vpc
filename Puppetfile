@@ -102,8 +102,8 @@ mod 'puppetlabs/mysql',
   :ref => '2.2.x'
 
 mod 'openstack/neutron',
-  :git => "#{base_url}/jiocloudvpc/puppet-neutron",
-  :ref => 'stable/kilo'
+  :git => "#{base_url}/openstack/puppet-neutron",
+  :ref => 'kilo-eol'
 
 mod 'stackforge/nova',
   :git => "#{base_url}/bodepd/puppet-nova",
