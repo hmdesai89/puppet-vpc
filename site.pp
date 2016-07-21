@@ -174,3 +174,11 @@ node /^vpc-monitor\d+/ {
   include rjil::omd_server
 }
 
+
+
+node /^vpc-analytics\d+/ {
+  include rjil::base
+  include rjil::redis
+  include rjil::cassandra
+  include rjil::contrail::analytics
+}
