@@ -145,6 +145,7 @@ node /^haproxy\d+/ {
   include rjil::haproxy::contrail
   include rjil::contrail::ec2api
   include rjil::haproxy::openstack
+  include rjil::pacemaker
 }
 
 node /^keystone\d+/ {
