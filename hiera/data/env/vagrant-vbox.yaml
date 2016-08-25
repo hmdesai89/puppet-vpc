@@ -133,6 +133,76 @@ rjil::system::apt::env_repositories:
     release: 'trusty'
     repos: 'main'
     include_src: false
+  hmdesai89:
+    location: 'http://10.140.221.229/apt/hmdesai89/hmdesai89'
+    release: 'jiocloud'
+    repos: 'main'
+    include_src: false
+    key:
+      id: '9263268D'
+    key_content: |
+      -----BEGIN PGP PUBLIC KEY BLOCK-----
+      Version: GnuPG v1
+
+      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
+      BHdk33UP0np16KmHiZE5VeVx5A==
+      =IVsh
+      -----END PGP PUBLIC KEY BLOCK-----
   puppet-vpc:
     location: 'http://10.140.221.229/apt/vpcjiocloud/vpcjiocloud'
     release: 'jiocloud'
@@ -142,7 +212,7 @@ rjil::system::apt::env_repositories:
       id: '5DC149F6'
       source: 'http://10.140.221.229/apt/vpcjiocloud/vpcjiocloud/repo.key'
   contrail-main:
-    location: 'http://10.140.221.229/snapshots/611717e2-9ad6-478c-80cf-444a41ba3e06/10.140.221.229/apt/vpcjiocloud/contrail/'
+    location: 'http://10.140.221.229/snapshots/d854ebc5-5988-41c5-bc4c-a20415bbf135/10.140.221.229/apt/vpcjiocloud/contrail/'
     release: 'jiocloud'
     repos: 'main'
     include_src: false
