@@ -55,9 +55,11 @@ rjil::jiocloud::consul::encrypt: "%{consul_gossip_encrypt}"
 
 upstream_ntp_servers:
   - 10.140.214.14
-  - 10.140.221.235
-  - 10.140.221.232
-  - 10.140.221.236
+  #- 10.140.221.235
+  #- 10.140.221.232
+  #- 10.140.221.236
+ntp::servers:
+  - 10.140.214.14
 
 #rjil::system::proxies:
 #  "no":
@@ -138,6 +140,9 @@ rjil::system::apt::env_repositories:
     release: 'jiocloud'
     repos: 'main'
     include_src: false
+    pin:
+      release: 'jiocloud'
+      priority: '1005'
     key:
       id: '9263268D'
     key_content: |
@@ -357,9 +362,10 @@ rjil::system::apt::keys:
     id: '5EDB1B62EC4926EA'
 
 ntp::servers:
-  - 10.140.221.235
-  - 10.140.221.232
-  - 10.140.221.236
+  - 10.140.214.14
+  #- 10.140.221.235
+  #- 10.140.221.232
+  #- 10.140.221.236
 
 rjil::pacemaker::ipaddress: "%{ipaddress_eth1}"
 virtual_ha_ip: '192.168.100.29'
@@ -373,7 +379,7 @@ rjil::jiocloud::dns::entries:
   identity.jiocloud.com:
     cname: iam.ind-west-1.staging.jiocloudservices.com
   network.jiocloud.com:
-    cname: haproxy1
+    cname: "%{hiera('virtual_ha_ip')}"
   compute.jiocloud.com:
     cname: keystone1
   image.jiocloud.com:
@@ -385,3 +391,43 @@ neutron::policy::policies:
     value: 'rule:context_is_admin or tenant_id:%(tenant_id)s'
 
 rjil::haproxy::contrail::ec2api_listen_ports: '1443'
+ec2api::db::mysql::allowed_host: "$ec2api_backend_ips"
+
+ec2api::ec2api_config:
+  DEFAULT/external_network:
+    value: 'public private-shared'
+  DEFAULT/account_profile_type:
+    value: 'low high'
+  DEFAULT/full_vpc_support:
+    value: True
+  DEFAULT/keystone_url:
+    value: "https://iam.ind-west-1.staging.jiocloudservices.com:443"
+  DEFAULT/verbose:
+    value: True
+  DEFAULT/log_dir:
+    value: '/var/log'
+  DEFAULT/api_paste_config:
+    value: '/etc/ec2api/api-paste.ini'
+  DEFAULT/ec2api_use_ssl:
+    value: true
+  DEFAULT/ec2api_listen_port:
+    value: '443'
+  DEFAULT/neutron_endpoint_url:
+    value: 'https://network.jiocloud.com:9696'
+  DEFAULT/nova_endpoint_url:
+    value: 'https://compute.jiocloud.com:8774/v2/'
+  DEFAULT/ssl_cert_file:
+    value: '/etc/ssl/certs/jiocloud.com.crt'
+  DEFAULT/ssl_key_file:
+    value: '/etc/ssl/keys/jiocloud.com.key'
+  database/connection:
+    value: 'mysql://ec2api:ec2api@network.jiocloud.com/ec2api'
+  keystone_authtoken/auth_port:
+    value: "443"
+  keystone_authtoken/auth_protocol:
+    value: "https"
+  keystone_authtoken/auth_host:
+    value: "iam.ind-west-1.staging.jiocloudservices.com"
+  keystone_authtoken/signing_dir:
+    value: '/var/cache/ec2api'
+
