@@ -239,5 +239,3 @@ mod 'vpramo/ec2api',
 mod 'puppetlabs/corosync',
   :git => "#{base_url}/puppet-community/puppet-corosync",
   :ref => 'master'
-
-

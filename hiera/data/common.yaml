@@ -1147,4 +1147,6 @@ ec2api::ec2api_config:
   keystone_authtoken/signing_dir:
     value: '/var/cache/ec2api'
 
-
+#### For analytics node
+rjil::contrail::analytics::api_virtual_ip: "%{hiera('virtual_ha_ip')}"
+rjil::contrail::analytics::discovery_virtual_ip: "%{hiera('virtual_ha_ip')}"
