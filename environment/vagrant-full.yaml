@@ -30,7 +30,7 @@ resources:
     networks: default
     boot_volume: default_volume
   vpc-cp:
-    number: 1
+    number: 2
     flavor: large
     image: trusty
     networks: default

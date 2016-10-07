@@ -369,7 +369,7 @@ ntp::servers:
 
 rjil::pacemaker::ipaddress: "%{ipaddress_eth1}"
 virtual_ha_ip: '192.168.100.29'
-virtual_ha_netmask: '23'
+virtual_ha_netmask: '24'
 rjil::pacemaker::haproxy_vip_ip: "%{hiera('virtual_ha_ip')}"
 rjil::pacemaker::haproxy_vip_ip_netmask: "%{hiera('virtual_ha_netmask')}"
 rjil::contrail::server::api_virtual_ip: "%{hiera('virtual_ha_ip')}"
