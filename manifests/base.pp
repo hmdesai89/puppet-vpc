@@ -41,5 +41,13 @@ class rjil::base (
     fail("Hiera data for 'public_interface' is not known")
   }
 
+
+  ## So far there is no module available to logrotate syslog
+  ## Adding logrotate for syslog
+
+  rjil::jiocloud::logrotate { 'syslog':
+    logdir => "/var/log/"
+  }
+
 }
 

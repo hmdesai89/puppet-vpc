@@ -1150,3 +1150,7 @@ ec2api::ec2api_config:
 #### For analytics node
 rjil::contrail::analytics::api_virtual_ip: "%{hiera('virtual_ha_ip')}"
 rjil::contrail::analytics::discovery_virtual_ip: "%{hiera('virtual_ha_ip')}"
+flow_log_limit: '240'
+flow_log_limit_day: "864000"
+flow_log_limit_time: "1800"
+
