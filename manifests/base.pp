@@ -46,7 +46,7 @@ class rjil::base (
   ## Adding logrotate for syslog
 
   rjil::jiocloud::logrotate { 'syslog':
-    logdir => "/var/log/"
+    logfile => "/var/log/syslog",
   }
 
 }
