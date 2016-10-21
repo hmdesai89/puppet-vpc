@@ -47,7 +47,6 @@ class rjil::base (
 
   rjil::jiocloud::logrotate { 'syslog':
     logfile       => "/var/log/syslog",
-    rotate_every  => 'hour',
     su            => true,
     su_owner      => 'root'
 
