@@ -5,6 +5,8 @@
 class rjil::contrail::analytics (
   $api_virtual_ip   = join(values(service_discover_consul('pre-haproxy')),""),
   $discovery_virtual_ip = join(values(service_discover_consul('pre-haproxy')),""),
+  $cassandra_ip_list = sort(values(service_discover_consul('cassandra-analytics'))),
+
 ) {
 
   anchor{'contrail_dep_apps':}
@@ -23,6 +25,8 @@ class rjil::contrail::analytics (
     enable_dns           => false,
     api_virtual_ip       => $api_virtual_ip,
     discovery_virtual_ip => $discovery_virtual_ip,
+    cassandra_ip_list    => $cassandra_ip_list,
+
   }
 
 }
