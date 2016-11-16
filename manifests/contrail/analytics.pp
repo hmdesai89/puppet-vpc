@@ -3,9 +3,31 @@
 ## Class for deploying contrail analytics
 ###
 class rjil::contrail::analytics (
-  $api_virtual_ip   = join(values(service_discover_consul('pre-haproxy')),""),
+  $api_virtual_ip       = join(values(service_discover_consul('pre-haproxy')),""),
   $discovery_virtual_ip = join(values(service_discover_consul('pre-haproxy')),""),
+  $cassandra_ip_list    = sort(values(service_discover_consul('cassandra-analytics'))),
+  $cassandra_seed_hostname = 'vpc-analytics1',
+  $cassandra_seeds      = values(service_discover_consul('cassandra-analytics', 'seed')),
+  $cassandra_cluster    = 'analytics',
 ) {
+
+
+  if $::hostname == $cassandra_seed_hostname {
+    $cassandra_seed = true
+    notify {'Seed node for cassandra' :}
+  } else {
+    $cassandra_seed = false
+    notify {'Not a seed for cassandra' :}
+  }     
+
+  class {'rjil::cassandra': 
+    seed           => $cassandra_seed,
+    db_for_config  => false,
+    cluster_name   => $cassandra_cluster,
+    seeds          => $cassandra_seeds,
+
+}
+
 
   anchor{'contrail_dep_apps':}
   Service<| title == 'cassandra' |>       ~> Anchor['contrail_dep_apps']
@@ -23,6 +45,8 @@ class rjil::contrail::analytics (
     enable_dns           => false,
     api_virtual_ip       => $api_virtual_ip,
     discovery_virtual_ip => $discovery_virtual_ip,
+    cassandra_ip_list    => $cassandra_ip_list,
+
   }
 
 }
